@@ -91,7 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
         
         <br>
-        <button style="background-color: #6c757d; padding: 10px;" onclick="window.location.href='ver_clientes.php'">Sair</button>
+        
+    <button style="background-color: #6c757d; padding: 10px;" onclick="window.location.href='clientes.php'">Sair</button>
     <?php endif; ?>
 </div>
 
