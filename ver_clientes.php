@@ -10,12 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $logado = true;
         
         try {
-            // Conecta na gaveta exata do servidor
-            $db = new PDO('sqlite:/app/dados/usuarios.sqlite');
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Usa a conexão centralizada que já tem o caminho certinho e cria a tabela!
+            require 'banco.php';
             
             // Puxa todos os clientes, ordenando do mais recente para o mais antigo
             $stmt = $db->query("SELECT id, email FROM clientes ORDER BY id DESC");
+// ... o resto do seu código continua igual ...
             $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
         } catch (Exception $e) {
