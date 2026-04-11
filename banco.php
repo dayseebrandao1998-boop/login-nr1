@@ -1,18 +1,19 @@
 <?php
-// O caminho exato da gaveta que agora está destrancada para sempre
-$caminho_banco = '/app/dados/usuarios.sqlite'; 
+// Arquivo: banco.php
+
+// O caminho agora aponta para a pasta do volume que você configurou no Coolify.
+$caminhoBanco = '/var/www/html/database/usuarios.sqlite';
 
 try {
-    $db = new PDO('sqlite:' . $caminho_banco);
+    // Faz a conexão usando o caminho absoluto
+    $db = new PDO('sqlite:' . $caminhoBanco);
+    
+    // Configura o PDO para sempre lançar exceções em caso de erro
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Cria a tabela de clientes se ela ainda não existir
-    $db->exec("CREATE TABLE IF NOT EXISTS clientes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT UNIQUE,
-        senha TEXT
-    )");
+    
 } catch (PDOException $e) {
-    die(json_encode(['sucesso' => false, 'erro' => 'Erro interno: ' . $e->getMessage()]));
+    // Se a conexão falhar, exibe o erro em JSON (pois pode ser chamado por APIs)
+    echo json_encode(["sucesso" => false, "erro" => "Erro na conexão com o banco: " . $e->getMessage()]);
+    exit;
 }
 ?>
